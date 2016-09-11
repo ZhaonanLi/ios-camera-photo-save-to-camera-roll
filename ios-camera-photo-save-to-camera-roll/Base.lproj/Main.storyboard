@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ios_camera_photo_save_to_camera_roll" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +16,37 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jrY-hU-BEb">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="524"/>
+                                <color key="backgroundColor" red="0.95497038366258868" green="1" blue="0.81075278773454917" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVa-IT-8T9">
+                                <rect key="frame" x="262" y="544" width="77" height="30"/>
+                                <state key="normal" title="Take Photo"/>
+                                <connections>
+                                    <action selector="takePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0tx-rQ-1as"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jrY-hU-BEb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="5dD-NB-QHl"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="aVa-IT-8T9" secondAttribute="bottom" constant="26" id="Dmx-oU-j6t"/>
+                            <constraint firstAttribute="trailing" secondItem="jrY-hU-BEb" secondAttribute="trailing" id="IJt-aA-Fxx"/>
+                            <constraint firstItem="jrY-hU-BEb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="T2e-qW-xRg"/>
+                            <constraint firstItem="aVa-IT-8T9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="duL-Ch-5gD"/>
+                            <constraint firstItem="aVa-IT-8T9" firstAttribute="top" secondItem="jrY-hU-BEb" secondAttribute="bottom" constant="20" id="knm-Rq-dFG"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cameraView" destination="jrY-hU-BEb" id="lxz-3W-Ali"/>
+                        <outlet property="takePhotoBtn" destination="aVa-IT-8T9" id="0Y7-zT-XDA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="305" y="429"/>
         </scene>
     </scenes>
 </document>

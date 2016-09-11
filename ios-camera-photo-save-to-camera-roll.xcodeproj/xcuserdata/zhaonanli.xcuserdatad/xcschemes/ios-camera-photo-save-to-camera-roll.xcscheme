@@ -5,6 +5,22 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3D0DA3411D850C4200851375"
+               BuildableName = "ios-camera-photo-save-to-camera-roll.app"
+               BlueprintName = "ios-camera-photo-save-to-camera-roll"
+               ReferencedContainer = "container:ios-camera-photo-save-to-camera-roll.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -13,6 +29,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3D0DA3411D850C4200851375"
+            BuildableName = "ios-camera-photo-save-to-camera-roll.app"
+            BlueprintName = "ios-camera-photo-save-to-camera-roll"
+            ReferencedContainer = "container:ios-camera-photo-save-to-camera-roll.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -26,6 +51,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3D0DA3411D850C4200851375"
+            BuildableName = "ios-camera-photo-save-to-camera-roll.app"
+            BlueprintName = "ios-camera-photo-save-to-camera-roll"
+            ReferencedContainer = "container:ios-camera-photo-save-to-camera-roll.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -35,6 +70,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3D0DA3411D850C4200851375"
+            BuildableName = "ios-camera-photo-save-to-camera-roll.app"
+            BlueprintName = "ios-camera-photo-save-to-camera-roll"
+            ReferencedContainer = "container:ios-camera-photo-save-to-camera-roll.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
