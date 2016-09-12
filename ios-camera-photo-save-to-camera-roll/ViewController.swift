@@ -16,7 +16,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var takePhotoBtn: UIButton!
     
-    
     var stillImageOutput: AVCaptureStillImageOutput?
     
     lazy var glContext: EAGLContext = {
@@ -25,11 +24,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }()
     
     lazy var glView: GLKView = {
-//        let glView = GLKView(
-//            frame: CGRect(0, 0, self.cameraView.bounds.width, self.cameraView.bounds.height),
-//            context: self.glContext
-//        )
-        
         let glView = GLKView(
             frame: CGRect(
                 x: 0,
@@ -55,7 +49,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     lazy var photoFullPath: String = {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        let photoFullPath = documentsPath.stringByAppendingString("/test_camera_capture_phtot.jpeg")
+        let photoFullPath = documentsPath.stringByAppendingString("/test_camera_capture_photo.jpeg")
         let fileManager = NSFileManager.defaultManager()
         if fileManager.fileExistsAtPath(photoFullPath) {
             do {
@@ -132,16 +126,53 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     @IBAction func takePhoto(sender: AnyObject) {
         
         if let videoConnection = stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
-            stillImageOutput!.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: { (cmSampleBuffer, error) in
+            stillImageOutput!.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: { (cmSampleBuffer: CMSampleBuffer!, error) in
             
                 if error != nil {
                     print(error)
                     return
                 }
                 
-                print("Take the picture!!!")
+                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(cmSampleBuffer)
+                let ciImage = CIImage(data: imageData)
                 
-            })
+                // Apply filter on ciImage here.////////////////////////////////////////////////////////
+                // Rotate the ciImage 90 degrees to right.
+                var affineTransform = CGAffineTransformMakeTranslation(ciImage!.extent.width / 2, ciImage!.extent.height / 2)
+                affineTransform = CGAffineTransformRotate(affineTransform, CGFloat(-1 * M_PI_2))
+                affineTransform = CGAffineTransformTranslate(affineTransform, -ciImage!.extent.width / 2, -ciImage!.extent.height / 2)
+                
+                let transformFilter = CIFilter(
+                    name: "CIAffineTransform",
+                    withInputParameters: [
+                        kCIInputImageKey: ciImage!,
+                        kCIInputTransformKey: NSValue(CGAffineTransform: affineTransform)
+                    ]
+                )
+                
+                let transformedCIImage = transformFilter!.outputImage!
+                // Finish applying filter on ciImage./////////////////////////////////////////////////////
+                
+                
+                
+                let cgImage = self.ciContext.createCGImage(transformedCIImage, fromRect: transformedCIImage.extent)
+                let filteredUIImage = UIImage(CGImage: cgImage, scale: 1.0, orientation: UIImageOrientation.Up)
+                
+                UIImageJPEGRepresentation(filteredUIImage, 1.0)!.writeToFile(self.photoFullPath, atomically: true)
+                PHPhotoLibrary.sharedPhotoLibrary().performChanges(
+                    {
+                        PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(NSURL(fileURLWithPath: self.photoFullPath))}) { completed, error in
+                            if error != nil {
+                                print("Cannot move the photo from file to camera roll, error=\(error)")
+                                return
+                            }
+                        
+                            if completed {
+                                print("Succeed in moving the photo from the file to camera roll.")
+                            }
+                        }
+                    }
+                )
         }
     }
     
@@ -198,12 +229,5 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     // Interface: AVCaptureVideoDataOutputSampleBufferDelegate
     func captureOutput(captureOutput: AVCaptureOutput!, didDropSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
         // Here we can deal with the frames have been droped.
-        
-        print("debug---1")
     }
-    
-    
-    
-    
 }
-
