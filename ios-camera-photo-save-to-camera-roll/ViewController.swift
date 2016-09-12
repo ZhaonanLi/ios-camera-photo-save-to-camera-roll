@@ -49,7 +49,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     lazy var photoFullPath: String = {
         let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        let photoFullPath = documentsPath.stringByAppendingString("/test_camera_capture_photo.jpeg")
+        let photoFullPath = documentsPath.stringByAppendingString("/test_camera_capture_photo.png")
         let fileManager = NSFileManager.defaultManager()
         if fileManager.fileExistsAtPath(photoFullPath) {
             do {
@@ -158,7 +158,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 let cgImage = self.ciContext.createCGImage(transformedCIImage, fromRect: transformedCIImage.extent)
                 let filteredUIImage = UIImage(CGImage: cgImage, scale: 1.0, orientation: UIImageOrientation.Up)
                 
-                UIImageJPEGRepresentation(filteredUIImage, 1.0)!.writeToFile(self.photoFullPath, atomically: true)
+                // UIImageJPEGRepresentation(filteredUIImage, 1.0)!.writeToFile(self.photoFullPath, atomically: true)
+                UIImagePNGRepresentation(filteredUIImage)!.writeToFile(self.photoFullPath, atomically: true)
+
                 PHPhotoLibrary.sharedPhotoLibrary().performChanges(
                     {
                         PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(NSURL(fileURLWithPath: self.photoFullPath))}) { completed, error in
